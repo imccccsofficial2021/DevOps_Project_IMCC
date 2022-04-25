@@ -11,7 +11,7 @@
 <MudTabs Elevation="4" Rounded="true" Centered="true" Color="@Color.Secondary">
     <MudSpacer />
     <MudTabPanel Text="e-Grades Summary">
-    <MudText Class="mb-8">List of Grades uploaded by the Instructor.</MudText>
+        <MudText Typo="Typo.h6">Updated as of: @DateTime.Now</MudText>
     @if (listGrades == null)
     {
         <MudProgressCircular Color="Color.Default" Indeterminate="true" />
@@ -21,8 +21,8 @@
 
         <MudTable Items="@listGrades" Dense="true" Hover="true" Striped="true">
             <ToolBarContent>
-                <MudButton></MudButton>
-                <MudText Typo="Typo.h6">List Of All Grades</MudText>
+                <br />
+                <MudButton Color="Color.Success" Size="Size.Small" StartIcon="@Icons.Material.Filled.CloudDownload"> Download Excel File</MudButton>
                 <MudSpacer />
                 <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
@@ -65,12 +65,12 @@
             <AddGradesByOfferNo></AddGradesByOfferNo>
         </MudTabPanel>
         <MudTabPanel Text="Modify Grades">
-
+            <GradesListView></GradesListView>
         </MudTabPanel>
         <MudTabPanel Text="Utility Tools">
 
         </MudTabPanel>
-    </MudTabs>
+</MudTabs>
 
 @code {
     private List<SummaryGrade> listGrades;
