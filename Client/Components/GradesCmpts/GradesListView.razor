@@ -1,60 +1,60 @@
 ﻿
 @inject HttpClient http;
+@using MudBlazorWASM.Client.Components.GradesCmpts
 @using MudBlazorWASM.Shared.Models
 
 
 <PageTitle>E-Grades Utility Management</PageTitle>
 
-<MudText Typo="Typo.h3" GutterBottom="true">E-Grades</MudText>
+    <MudSpacer />
+        <MudText Typo="Typo.h6">Updated as of: @DateTime.Now</MudText>
+        @if (listGrades == null)
+        {
+            <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+        }
+        else
+        {
 
-<MudText Class="mb-8">List of Grades uploaded by the Instructor.</MudText>
-@if (listGrades == null)
-{
-    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
-}
-else
-{
-
-    <MudTable Items="@listGrades" Dense="@dense" Hover="@hover" Striped="@striped">
-        <ToolBarContent>
-            <MudButton></MudButton>
-            <MudText Typo="Typo.h6">List Of All Grades</MudText>
-            <MudSpacer />
-            <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-        </ToolBarContent>
-        <HeaderContent>
-            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SummaryGrade, object>(x=>x.Id)">No.</MudTableSortLabel></MudTh>
-            <MudTh>Offer#</MudTh>
-            <MudTh>Code</MudTh>
-            <MudTh>Subject</MudTh>
-            <MudTh>StudentID</MudTh>
-            <MudTh>Lastname</MudTh>
-            <MudTh>Firstname</MudTh>
-            <MudTh>PRE</MudTh>
-            <MudTh>MID</MudTh>
-            <MudTh>SEMI</MudTh>
-            <MudTh>FINAL</MudTh>
-            <MudTh>AVE</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="No.">@context.Id</MudTd>
-            <MudTd DataLabel="Offer #">@context.Offerno</MudTd>
-            <MudTd DataLabel="Course #">@context.Courseno</MudTd>
-            <MudTd DataLabel="Subject">@context.Subject</MudTd>
-            <MudTd DataLabel="Student ID">@context.Studno</MudTd>
-            <MudTd DataLabel="Lastname">@context.Last</MudTd>
-            <MudTd DataLabel="Firstname">@context.First</MudTd>
-            <MudTd DataLabel="PRELIM">@context.Term1</MudTd>
-            <MudTd DataLabel="MIDTERM">@context.Term2</MudTd>
-            <MudTd DataLabel="SEMI">@context.Term3</MudTd>
-            <MudTd DataLabel="FINAL">@context.Term4</MudTd>
-            <MudTd DataLabel="AVERAGE">@context.Average</MudTd>
-        </RowTemplate>
-        <PagerContent>
-            <MudTablePager PageSizeOptions="new int[]{20, 50, 100,500,1000}" />
-        </PagerContent>
-    </MudTable>
-}
+        <MudTable Items="@listGrades" Dense="true" Hover="true" Striped="true">
+            <ToolBarContent>
+                <br />
+                <MudButton Color="Color.Success" Size="Size.Small" StartIcon="@Icons.Material.Filled.CloudDownload"> Download Excel File</MudButton>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SummaryGrade, object>(x=>x.Id)">No.</MudTableSortLabel></MudTh>
+                <MudTh>Offer#</MudTh>
+                <MudTh>Code</MudTh>
+                <MudTh>Subject</MudTh>
+                <MudTh>StudentID</MudTh>
+                <MudTh>Lastname</MudTh>
+                <MudTh>Firstname</MudTh>
+                <MudTh>PRE</MudTh>
+                <MudTh>MID</MudTh>
+                <MudTh>SEMI</MudTh>
+                <MudTh>FINAL</MudTh>
+                <MudTh>AVE</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="No.">@context.Id</MudTd>
+                <MudTd DataLabel="Offer #">@context.Offerno</MudTd>
+                <MudTd DataLabel="Course #">@context.Courseno</MudTd>
+                <MudTd DataLabel="Subject">@context.Subject</MudTd>
+                <MudTd DataLabel="Student ID">@context.Studno</MudTd>
+                <MudTd DataLabel="Lastname">@context.Last</MudTd>
+                <MudTd DataLabel="Firstname">@context.First</MudTd>
+                <MudTd DataLabel="PRELIM">@context.Term1</MudTd>
+                <MudTd DataLabel="MIDTERM">@context.Term2</MudTd>
+                <MudTd DataLabel="SEMI">@context.Term3</MudTd>
+                <MudTd DataLabel="FINAL">@context.Term4</MudTd>
+                <MudTd DataLabel="AVERAGE">@context.Average</MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new int[]{20, 50, 100,500,1000}" />
+            </PagerContent>
+        </MudTable>
+    }
 
 @code {
     private bool dense = true;
