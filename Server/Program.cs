@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
-using MudBlazorWASM.Server;
+﻿using Microsoft.EntityFrameworkCore;
 using MudBlazorWASM.Server.Data;
-using MudBlazorWASM.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IServiceCollection, ServiceCollection>();
-builder.Services.AddDbContext<WebAppDbContext>(options => 
+builder.Services.AddDbContext<WebAppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
