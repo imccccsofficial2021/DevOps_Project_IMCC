@@ -78,8 +78,7 @@
         Elements = await httpClient.GetFromJsonAsync<List<SummaryGrade>>("api/grades/GetAllGrades");        
         dense = true;
         hover = true;
-        striped = true;
-        bordered = true;
+
     }
 
     private bool FilterFunc1(SummaryGrade element) => FilterFunc(element, searchString1);
