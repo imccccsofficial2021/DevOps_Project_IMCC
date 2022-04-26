@@ -5,7 +5,9 @@ namespace MudBlazorWASM.Server.Data
 {
     public class WebAppDbContext : DbContext
     {
+        #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public WebAppDbContext(DbContextOptions<WebAppDbContext> options) : base(options)
+        #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -15,15 +17,15 @@ namespace MudBlazorWASM.Server.Data
             {
                 entity.ToTable("EGrades");
 
-                entity.HasIndex(e => e.DepartmentsId, "IX_EGrades_DepartmentsId");
+                entity.HasIndex(e => e.DepartmentsId, "DepartmentId");
 
-                entity.HasIndex(e => e.SubjectCodeId, "IX_EGrades_SubjectCodeId");
+                entity.HasIndex(e => e.SubjectCode, "SubjectCode");
 
                 entity.Property(e => e.Syear).HasColumnName("SYear");
 
-                entity.HasOne(d => d.SubjectCode)
-                    .WithMany(p => p.Egrades)
-                    .HasForeignKey(d => d.SubjectCodeId);
+                //entity.HasMany(d => d.SubjectCode)
+                //    .WithMany(p => p.Egrades)
+                //    .HasForeignKey(d => d.SubjectCode);
             });
 
             modelBuilder.Entity<SummaryGrade>(entity =>
@@ -56,7 +58,7 @@ namespace MudBlazorWASM.Server.Data
 
                 entity.Property(e => e.Studno).HasColumnName("STUDNO");
 
-                entity.Property(e => e.Subject)
+                entity.Property(e => e.Subjects)
                     .IsUnicode(false)
                     .HasColumnName("SUBJECT");
 
@@ -69,12 +71,12 @@ namespace MudBlazorWASM.Server.Data
                 entity.Property(e => e.Term4).HasColumnName("TERM4");
             });
 
-          //  OnModelCreatingPartial(modelBuilder);
+            //  OnModelCreatingPartial(modelBuilder);
         }
 
         //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-      //  public virtual DbSet<Department> DepartmentList { get; set; }
+        //  public virtual DbSet<Department> DepartmentList { get; set; }
         public virtual DbSet<Egrade> Egrades { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }

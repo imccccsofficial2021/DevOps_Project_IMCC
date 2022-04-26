@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MudBlazorWASM.Server.Data;
 using MudBlazorWASM.Shared.Models;
@@ -13,7 +12,7 @@ namespace MudBlazorWASM.Server.Controllers
         private readonly WebAppDbContext _webAppDb;
         public GradesController(WebAppDbContext webAppDb)
         {
-            _webAppDb = webAppDb;   
+            _webAppDb = webAppDb;
         }
 
         [HttpGet]
@@ -40,12 +39,12 @@ namespace MudBlazorWASM.Server.Controllers
 
         [HttpPost]
         [Route("AddNewGrade")]
-        public async Task<ActionResult<List<SummaryGrade>>> CreateNewGrade([FromBody]SummaryGrade summaryGrade)
-        { 
+        public async Task<ActionResult<List<SummaryGrade>>> CreateNewGrade([FromBody] SummaryGrade summaryGrade)
+        {
             _webAppDb.SummaryGrades.Add(summaryGrade);
             await _webAppDb.SaveChangesAsync();
 
-            return Ok(await GetDbListGrades());    
+            return Ok(await GetDbListGrades());
         }
 
         [HttpPut("{offerno}")]
@@ -68,7 +67,7 @@ namespace MudBlazorWASM.Server.Controllers
             grades.Term3 = summaryGrade.Term3;
             grades.Term4 = summaryGrade.Term4;
             grades.Average = summaryGrade.Average;
-            grades.Subject = summaryGrade.Subject;
+            grades.Subjects = summaryGrade.Subjects;
 
             await _webAppDb.SaveChangesAsync();
 
@@ -77,7 +76,7 @@ namespace MudBlazorWASM.Server.Controllers
         }
 
         [HttpDelete("{offerno}")]
-        public async Task<ActionResult<List<SummaryGrade>>> DeleteGradesByOfferNo([FromBody]int offerno)
+        public async Task<ActionResult<List<SummaryGrade>>> DeleteGradesByOfferNo([FromBody] int offerno)
         {
             var grades = await _webAppDb.SummaryGrades
                 .FirstOrDefaultAsync(sh => sh.Offerno == offerno);
@@ -89,7 +88,7 @@ namespace MudBlazorWASM.Server.Controllers
 
             return Ok(await GetDbListGrades());
         }
-        
+
         private async Task<ActionResult<List<SummaryGrade>>> GetDbListGrades()
         {
             return await _webAppDb.SummaryGrades.ToListAsync();
