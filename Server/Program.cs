@@ -11,8 +11,6 @@ builder.Services.AddScoped<IServiceCollection, ServiceCollection>();
 builder.Services.AddDbContext<WebAppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

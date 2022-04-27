@@ -6,12 +6,13 @@
 @using MudBlazorWASM.Client.Components.GradesCmpts
 
 
-<MudTabs Elevation="4" Rounded="true" AlwaysShowScrollButtons="true" Color="@Color.Secondary" Class="mt-4">
-    <MudTabPanel Text="eGrades Summary">
+<MudTabs Elevation="4" Rounded="true" Outlined="true" AlwaysShowScrollButtons="true" Color="@Color.Secondary" Class="mt-4">
+    <MudTabPanel Icon="@Icons.Material.Filled.Summarize" Text="eGrades Summary">
+@*        <MudProgressCircular Color="Color.Secondary" Indeterminate="true" />*@
         <GradesListView></GradesListView>
     </MudTabPanel>
-    <MudTabPanel Text="Download" />
-    <MudTabPanel Text="Print eGrades" />
+    <MudTabPanel Icon="@Icons.Material.Filled.CloudDownload" Text="Download" />
+    <MudTabPanel Icon="@Icons.Material.Filled.LocalPrintshop" Text="Print eGrades" />
 </MudTabs>
 
 
