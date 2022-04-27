@@ -75,9 +75,9 @@ namespace MudBlazorWASM.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "DepartmentsId" }, "IX_EGrades_DepartmentsId");
+                    b.HasIndex(new[] { "DepartmentsId" }, "EGrades_DepartmentsId");
 
-                    b.HasIndex(new[] { "SubjectCodeId" }, "IX_EGrades_SubjectCodeId");
+                    b.HasIndex(new[] { "SubjectCodeId" }, "EGrades_SubjectCodeId");
 
                     b.ToTable("EGrades", (string)null);
                 });

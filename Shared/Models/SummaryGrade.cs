@@ -5,7 +5,6 @@ namespace MudBlazorWASM.Shared.Models
 
     public partial class SummaryGrade
     {
-        [Key]
         public int Id { get; set; }
         public int? Deptno { get; set; }
         public int Offerno { get; set; }
@@ -19,6 +18,6 @@ namespace MudBlazorWASM.Shared.Models
         public double? Term3 { get; set; }
         public double? Term4 { get; set; }
         public double? Average { get; set; }
-        public string Subjects { get; set; }
+        public string? Subjects { get; set; }
     }
 }
