@@ -1,17 +1,19 @@
 ﻿
 @inject HttpClient httpClient;
-@inject ISnackbar Snackbar
+@inject ISnackbar Snackbar;
 @using MudBlazorWASM.Client.Components.GradesCmpts
 @using MudBlazorWASM.Shared.Models
 
 <h1>e-Grades</h1>
 
-<MudTable Items="@Elements" Dense="@dense" Hover="@hover" ReadOnly="@ronly" CanCancelEdit="@canCancelEdit" Filter="new Func<SummaryGrade,bool>(FilterFunc1)" 
+<MudTable HorizontalScrollbar="true" Height="600px" Breakpoint="Breakpoint.Sm" FixedHeader="true" Items="@Elements" Dense="@dense" Hover="@hover" ReadOnly="@ronly" CanCancelEdit="@canCancelEdit" Filter="new Func<SummaryGrade,bool>(FilterFunc1)" 
           @bind-SelectedItem="selectedItem1" CommitEditTooltip="Commit Edit"
-          OnCommitEditClick="@(() => Snackbar.Add("Commit Edit Handler Invoked"))" RowEditPreview="BackupItem" RowEditCancel="ResetItemToOriginalValues"
+          OnCommitEditClick="@(() => Snackbar.Add("Student grades successfully updated"))" RowEditPreview="BackupItem" RowEditCancel="ResetItemToOriginalValues"
           RowEditCommit="ItemHasBeenCommitted" IsEditRowSwitchingBlocked="@blockSwitch">
     <ToolBarContent>
-        <MudText Typo="Typo.h6">List of eGrades</MudText>
+        <MudText Typo="Typo.caption">Updates as of @DateTime.Now</MudText>
+        <MudSpacer />
+        <MudText Typo="Typo.caption" Class="align-self-center">Selected Item(s): @selectedItem1?.Last, @selectedItem1?.First - @selectedItem1?.Studno</MudText>
         <MudSpacer />
         <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
@@ -43,6 +45,31 @@
         <MudTd DataLabel="FINAL">@context.Term4</MudTd>
         <MudTd DataLabel="AVERAGE">@context.Average</MudTd>
     </RowTemplate>
+    <RowEditingTemplate>
+        <MudTd>@context.Id</MudTd>
+        <MudTd>@context.Offerno</MudTd>
+        <MudTd>@context.Courseno</MudTd>
+        <MudTd>@context.Studno</MudTd>
+        <MudTd>@context.Last</MudTd>
+        <MudTd>@context.First</MudTd>
+        <MudTd>@context.Mi</MudTd>
+        <MudTd DataLabel="PRELIM">
+            <MudTextField @bind-Value="@context.Term1" Required />
+        </MudTd>
+        <MudTd>
+           <MudTextField @bind-Value="@context.Term2" Required />
+        </MudTd>
+        <MudTd>
+           <MudTextField @bind-Value="@context.Term3" Required />
+        </MudTd>
+        <MudTd>
+           <MudTextField @bind-Value="@context.Term4" Required />
+        </MudTd>
+        <MudTd>
+           <MudTextField @bind-Value="@context.Average" Required />
+        </MudTd>
+    </RowEditingTemplate>
+
     <PagerContent>
         <MudTablePager />
     </PagerContent>
@@ -55,7 +82,7 @@
     <MudSwitch @bind-Checked="@bordered" Color="Color.Warning">Bordered</MudSwitch>*@
     <MudSpacer />
     <div style="min-width:200px;">
-        <MudText Inline="true" Class="align-self-center">Selected Item(s): @selectedItem1?.Last</MudText>
+        <MudText Inline="true" Class="align-self-center">Selected Item(s): @selectedItem1?.Last, @selectedItem1?.First</MudText>
     </div>
 </div>
 
@@ -70,6 +97,7 @@
     private SummaryGrade? elementBeforeEdit;
     private bool canCancelEdit = false;
     private bool blockSwitch = false;
+    private double ComputedFinalGrades;
 
     private IEnumerable<SummaryGrade> Elements = new List<SummaryGrade>();
 
@@ -127,28 +155,12 @@
 
     private void ResetItemToOriginalValues(object element)
     {
-        ((SummaryGrade)element).Term1 = elementBeforeEdit.Term1;
-        ((SummaryGrade)element).Term2 = elementBeforeEdit.Term2;
-        ((SummaryGrade)element).Term3 = elementBeforeEdit.Term3;
-        ((SummaryGrade)element).Term4 = elementBeforeEdit.Term4;
-        ((SummaryGrade)element).Average = elementBeforeEdit.Average;
+        ((SummaryGrade)element).Term1 = elementBeforeEdit?.Term1;
+        ((SummaryGrade)element).Term2 = elementBeforeEdit?.Term2;
+        ((SummaryGrade)element).Term3 = elementBeforeEdit?.Term3;
+        ((SummaryGrade)element).Term4 = elementBeforeEdit?.Term4;
+        ((SummaryGrade)element).Average = elementBeforeEdit?.Average;
         AddEditionEvent($"RowEditCancel event: Editing of Element {((SummaryGrade)element).Studno} cancelled");
-    }
-
-
-    void StartedEditingItem(SummaryGrade item)
-    {
-        _events.Insert(0, $"Event = StartedEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
-    }
-
-    void CancelledEditingItem(SummaryGrade item)
-    {
-        _events.Insert(0, $"Event = CancelledEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
-    }
-
-    void CommittedItemChanges(SummaryGrade item)
-    {
-        _events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
     }
 
 }
