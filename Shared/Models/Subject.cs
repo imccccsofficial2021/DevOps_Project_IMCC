@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MudBlazorWASM.Shared.Models
 {
 
     public partial class Subject
     {
-        public Subject()
-        {
-            Egrades = new HashSet<Egrade>();
-        }
-
+        [Key]
         public int Id { get; set; }
-        public string SubjectCode { get; set; } = null!;
-        public string Description { get; set; } = null!;
-        public string LecUnits { get; set; } = null!;
-        public string LabUnits { get; set; } = null!;
-        public string TotUnits { get; set; } = null!;
-        public string Department { get; set; } = null!;
-        public string PreRequisite { get; set; } = null!;
+        public string Description { get; set; }
+        public string LecUnits { get; set; }
+        public string LabUnits { get; set; }
+        public string TotUnits { get; set; }
+        public string Department { get; set; }
+        public string? PreRequisite { get; set; }
 
-        public virtual ICollection<Egrade> Egrades { get; set; }
+        public List<Egrade>? Egrades { get; set; }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MudBlazorWASM.Server.Data;
 using MudBlazorWASM.Shared.Models;
-using System.Net.Http.Json;
 
 namespace MudBlazorWASM.Server.Services
 {
@@ -13,7 +11,7 @@ namespace MudBlazorWASM.Server.Services
         public GradeService(HttpClient http, NavigationManager navigationManager)
         {
             _http = http;
-            _navigationManager = navigationManager; 
+            _navigationManager = navigationManager;
         }
 
         public List<SummaryGrade> AllGrades { get; set; } = new List<SummaryGrade>();
@@ -33,7 +31,7 @@ namespace MudBlazorWASM.Server.Services
             if (studno != null)
                 return studno;
             throw new Exception("Student Details Not Found!");
-                       
+
         }
 
         public async Task DeleteGradesByOfferNo(int offerno)
