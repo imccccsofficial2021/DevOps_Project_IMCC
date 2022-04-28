@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿global using Microsoft.EntityFrameworkCore;
 using MudBlazorWASM.Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,10 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IServiceCollection, ServiceCollection>();
+builder.Services.AddDbContext<WebAppDbContext>();
 builder.Services.AddDbContext<WebAppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); 
+builder.Services.AddScoped<IServiceCollection, ServiceCollection>();
 
+
+//builder.Services.AddSingleton<IDataAccess, DataAccess>();
 
 var app = builder.Build();
 

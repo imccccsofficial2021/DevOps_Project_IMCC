@@ -24,7 +24,6 @@
 	  <Folder Include="Components\DepartmentCmpts\" />
 	  <Folder Include="Components\EnrollmentCmpts\" />
 	  <Folder Include="Components\PreRegistrationCmpts\" />
-	  <Folder Include="Components\TeacherCmpts\" />
 	  <Folder Include="Components\StudentCmpts\" />
 	</ItemGroup>
 
