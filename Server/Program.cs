@@ -13,6 +13,7 @@ builder.Services.AddDbContext<WebAppDbContext>(options =>
 builder.Services.AddScoped<IServiceCollection, ServiceCollection>();
 
 
+
 //builder.Services.AddSingleton<IDataAccess, DataAccess>();
 
 var app = builder.Build();
@@ -21,6 +22,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {

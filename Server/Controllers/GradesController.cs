@@ -48,7 +48,6 @@ namespace MudBlazorWASM.Server.Controllers
         }
 
         [HttpPut("{offerno}")]
-        [Route("UpdateAllGrades")]
         public async Task<ActionResult<List<SummaryGrade>>> UpdateAllGrades([FromBody] SummaryGrade summaryGrade, int offerno)
         {
             var grades = await _webAppDb.SummaryGrades.FirstOrDefaultAsync(sh => sh.Offerno == offerno);

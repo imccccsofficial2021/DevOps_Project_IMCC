@@ -119,9 +119,15 @@ namespace MudBlazorWASM.Server.Migrations
 
                     b.HasKey("Id");
 
+
                     b.HasIndex(new[] { "DepartmentsId" }, "DepartmentId");
 
                     b.HasIndex(new[] { "SubjectCode" }, "SubjectCode");
+
+                    b.HasIndex(new[] { "DepartmentsId" }, "EGrades_DepartmentsId");
+
+                    b.HasIndex(new[] { "SubjectCodeId" }, "EGrades_SubjectCodeId");
+
 
                     b.ToTable("EGrades", (string)null);
                 });
