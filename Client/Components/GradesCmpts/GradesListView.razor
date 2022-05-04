@@ -15,7 +15,7 @@
         <MudSpacer />
         <MudText Typo="Typo.caption" Class="align-self-center">Selected Item(s): @selectedItem1?.Last, @selectedItem1?.First - @selectedItem1?.Studno</MudText>
         <MudSpacer />
-        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        <MudTextField @bind-Value="searchString1" Variant="Variant.Outlined" Label="Search OfferNo, StudentNo, Lastname or Firstname" Placeholder="Search keyword..." Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
     <HeaderContent>
         <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SummaryGrade, object>(x=>x.Id)">No.</MudTableSortLabel></MudTh>
@@ -54,7 +54,7 @@
         <MudTd>@context.First</MudTd>
         <MudTd>@context.Mi</MudTd>
         <MudTd DataLabel="PRELIM">
-            <MudTextField @bind-Value="@context.Term1" Required />
+           <MudTextField @bind-Value="@context.Term1" Required />
         </MudTd>
         <MudTd>
            <MudTextField @bind-Value="@context.Term2" Required />

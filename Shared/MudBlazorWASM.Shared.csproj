@@ -11,6 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="DataAccess\" />
 	  <Folder Include="ScaffoldItem\" />
 	</ItemGroup>
 </Project>

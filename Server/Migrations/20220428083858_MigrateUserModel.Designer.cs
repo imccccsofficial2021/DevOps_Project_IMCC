@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MudBlazorWASM.Server.Data;
 
@@ -11,9 +12,10 @@ using MudBlazorWASM.Server.Data;
 namespace MudBlazorWASM.Server.Migrations
 {
     [DbContext(typeof(WebAppDbContext))]
-    partial class WebAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220428083858_MigrateUserModel")]
+    partial class MigrateUserModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,15 +121,9 @@ namespace MudBlazorWASM.Server.Migrations
 
                     b.HasKey("Id");
 
-
                     b.HasIndex(new[] { "DepartmentsId" }, "DepartmentId");
 
                     b.HasIndex(new[] { "SubjectCode" }, "SubjectCode");
-
-                    b.HasIndex(new[] { "DepartmentsId" }, "EGrades_DepartmentsId");
-
-                    b.HasIndex(new[] { "SubjectCodeId" }, "EGrades_SubjectCodeId");
-
 
                     b.ToTable("EGrades", (string)null);
                 });

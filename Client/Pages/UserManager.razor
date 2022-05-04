@@ -1,0 +1,19 @@
+﻿@page "/view-list-user"
+
+@inject HttpClient httpClient;
+@using MudBlazorWASM.Client.Components.UserCmpts
+@using MudBlazorWASM.Shared.Models
+
+<MudTabs Elevation="4" Rounded="true" Outlined="true" AlwaysShowScrollButtons="true" Color="@Color.Secondary" Class="mt-4">
+    <UserDetails></UserDetails>
+    <MudTabPanel Icon="@Icons.Material.Filled.AccountBox" Text="View Users">
+        <UserDetails></UserDetails>
+    </MudTabPanel>
+    <MudTabPanel Icon="@Icons.Material.Filled.AddTask" Text="Add User">
+        <AddUser></AddUser>
+    </MudTabPanel>
+</MudTabs>
+
+@code {
+
+}
