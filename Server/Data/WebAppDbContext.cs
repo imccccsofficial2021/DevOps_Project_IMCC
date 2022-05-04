@@ -1,15 +1,36 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MudBlazorWASM.Shared.Models;
+using MudBlazorWASM.Shared.Models.AuthenticationUser;
 
 namespace MudBlazorWASM.Server.Data
 {
-    public class WebAppDbContext : DbContext
+    public partial class WebAppDbContext : DbContext
     {
+
+      //  private readonly DbContextOption<WebAppDbContext> options;
+
+        public WebAppDbContext()
+        {
+        }
+
+        public WebAppDbContext(DbContextOptions<WebAppDbContext> options)
+            : base(options) 
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public WebAppDbContext(DbContextOptions<WebAppDbContext> options) : base(options)
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
         {
         }
+        
+        // public virtual DbSet<Department> DepartmentList { get; set; }
+        public virtual DbSet<Egrade> Egrades { get; set; } = null!;
+        public virtual DbSet<Student> Students { get; set; } = null!;
+        public virtual DbSet<Subject> Subjects { get; set; } = null!;
+        public virtual DbSet<SummaryGrade> SummaryGrades { get; set; } = null!;
+        public virtual DbSet<AppUser> AppUsers { get; set; } = null!;
+       // public DbContextOption<WebAppDbContext> Options { get; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -71,17 +92,32 @@ namespace MudBlazorWASM.Server.Data
                 entity.Property(e => e.Term4).HasColumnName("TERM4");
             });
 
+            modelBuilder.Entity<AppUser>(entity =>
+            {
+                entity.ToTable("userdetails");
+                entity.Property(e => e.Userid).HasColumnName("Userid");
+                entity.Property(e => e.Username)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+                entity.Property(e => e.Address)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+                entity.Property(e => e.Cellnumber)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+                entity.Property(e => e.Emailid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+            OnModelCreatingPartial(modelBuilder);
+
             //  OnModelCreatingPartial(modelBuilder);
         }
 
-        //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        //  public virtual DbSet<Department> DepartmentList { get; set; }
-        public virtual DbSet<Egrade> Egrades { get; set; }
-        public virtual DbSet<Student> Students { get; set; }
-        public virtual DbSet<Subject> Subjects { get; set; }
-        public virtual DbSet<SummaryGrade> SummaryGrades { get; set; }
-
-
+        public class DbContextOption<T>
+        {
+        }
     }
 }
